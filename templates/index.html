@@ -1,0 +1,53 @@
+<!--
+RIT Honors Program - Technology Committee
+Project: Laundry Tracking Website
+Scope:
+
+Version: PRE RELEASE
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Laundry Tracker - Gibson Hall</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+</head>
+
+<body>
+    <header>
+        <h1>Laundry Tracker - Gibson Hall</h1>
+    </header>
+
+    <nav>
+        <!--
+            Possible place to link other Laundry Trackers?
+            About page?
+        -->
+    </nav>
+
+    <div class="wrapper">
+        {% for id, value in washers.items() %}
+        <div id="machine{{ id }}" class="{{ 'available' if value == WasherState.EMPTY else 'unavailable' }}">
+            <h2>Washer {{ id }}</h2>
+            <p id="usage">{{ value.name | title }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        setInterval(function() {
+            fetch('/washers')
+                .then(res => res.json())
+                .then(data => {
+                    for (const [id, state] of Object.entries(data)) {
+                        console.log(`${id}: ${state}`);
+                    }
+                })
+                .catch(() => alert('Something went wrong, please try again later'));
+        }, 60 * 1000);  // 1 minute
+    </script>
+</body>
+</html>

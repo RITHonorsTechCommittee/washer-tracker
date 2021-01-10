@@ -1,0 +1,81 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family:"Roboto", sans-serif;
+}
+
+header {
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 15px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    font-size: 40px;
+    color: #ffffff;
+    text-align: center;
+    background-color: #F76902;
+
+    grid-area: h;
+}
+
+.wrapper {
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 15px;
+    
+    display: grid;
+    grid-gap: .75rem;
+    grid-template-columns: auto auto auto;
+    grid-template-areas: "h h h" 
+                         "m1 m2 m3"
+                         "m4 m5 m6"
+                         "m7 m8 m9";
+}
+
+#machine1 {
+    grid-area: m1;
+}
+
+#machine2 {
+    grid-area: m2;
+}
+
+#machine3 {
+    grid-area: m3;
+}
+
+#machine4 {
+    grid-area: m4;
+}
+
+#machine5 {
+    grid-area: m5;
+}
+
+#machine6 {
+    grid-area: m6;
+}
+
+#machine7 {
+    grid-area: m7;
+}
+
+#machine8 {
+    grid-area: m8;
+}
+
+#machine9 {
+    grid-area: m9;
+}
+
+.available {
+    background-color: #84BD00;
+}
+
+.unavailable {
+    background-color: #DA291C;
+}
