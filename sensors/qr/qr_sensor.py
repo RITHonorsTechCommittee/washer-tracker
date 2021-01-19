@@ -38,7 +38,12 @@ class QRSensor(Sensor):
 
                 return 'ok'
             else:  # request.method == 'GET'
-                return render_template('scan.html')
+                return render_template('scan.html', **{
+                    'washer_id': washer_id,
+                    'for_washer': True,
+                    'current_state': self.get_washer(washer_id),
+                    'WasherState': WasherState  # lets us use enum equality checks
+                })
 
         app.add_url_rule('/scan/<int:washer_id>', 'scan', scan, methods=['GET', 'POST'])
 

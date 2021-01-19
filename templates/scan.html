@@ -1,58 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Washer Tracker</title>
+	<title>Washer Tracker</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='scan.css') }}" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 </head>
 <body>
-  <form id="form" onsubmit="sendData(event)">
-    <select id="new_state" name="new_state" onchange="onSelectState(this.value);" >
-      <option selected>Select one...</option>
-      <option value="RUNNING">Adding a load</option>
-      <option value="EMPTY">Removing a load</option>
-    </select>
+  	<header>Scan {% if for_washer %}Washer{% else %}Dryer{% endif %} #{{ washer_id }}</header>
+	<form id="form" onsubmit="sendData(event)">
 
-    <select id="cycle" name="cycle" hidden>
-      <option selected>Select one...</option>
+		{% if current_state == WasherState.EMPTY %}
+		<input type="hidden" name="new_state" value="RUNNING">
+		<select name="cycle">
+			<option selected>Select a cycle...</option>
 
-      {% if for_washer %}
-      <option value="WASHER_PERM_PRESS">Perm Press (24 minutes)</option>
-      <option value="WASHER_COOL">Cool (27 minutes)</option>
-      {% else %}
-      <option value="DRYER_DELICATES">Delicates (40 minutes)</option>
-      <option value="DRYER_MEDIUM">Medium (42 minutes)</option>
-      {% endif %}
-    </select>
+			{% if for_washer %}
+			<option value="WASHER_PERM_PRESS">Perm Press (24 minutes)</option>
+			<option value="WASHER_COOL">Cool (27 minutes)</option>
+			{% else %}
+			<option value="DRYER_DELICATES">Delicates (40 minutes)</option>
+			<option value="DRYER_MEDIUM">Medium (42 minutes)</option>
+			{% endif %}
+		</select>
+		<input type="submit" value="Start Load">
 
-    <input type="submit" value="Submit">
-  </form>
-  <script>
-    function onSelectState(value) {
-      const cycleSelector = document.getElementById('cycle');
-      cycleSelector.hidden = value !== 'RUNNING';
-    }
+		{% elif current_state == WasherState.FULL %}
+		<input type="hidden" name="new_state" value="EMPTY">
+		<h3>Thank you for emptying this {% if for_washer %}washer{% else %}dryer{% endif %} in a timely manner!</h3>
+		<input type="submit" value="Empty">
 
-    function sendData(event) {
-      event.preventDefault();
+		{% else %}  <!-- current_state == WasherState.RUNNING -->
+		<h3>Sorry, this {% if for_washer %}washer{% else %}dryer{% endif %} is currently running.</h3>
+		{% endif %}
+	</form>
+	<script>
 
-      const formData = new FormData(document.getElementById('form'));
+		function sendData(event) {
+			event.preventDefault();
 
-      const payload = {
-        state: formData.get('new_state')
-      };
-      if (payload.state === 'RUNNING') {
-        payload.cycle = formData.get('cycle');
-      }
+			const formData = new FormData(document.getElementById('form'));
 
-      fetch('/scan/' + window.location.pathname.split("/").pop(), {
-        method: 'POST',
-        body: JSON.stringify(payload),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-        .then(() => alert('Thank you!'))
-        .catch(() => alert('Something went wrong, please try again later.'));
-    }
-  </script>
+			const payload = {
+				state: formData.get('new_state')
+			};
+			if (payload.state === 'RUNNING') {
+				payload.cycle = formData.get('cycle');
+			}
+
+			fetch('/scan/' + window.location.pathname.split("/").pop(), {
+				method: 'POST',
+				body: JSON.stringify(payload),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+				.then(() => {
+						alert('Thank you!');
+				window.location = '/';
+				})
+				.catch(() => alert('Something went wrong, please try again later.'));
+		}
+	</script>
 </body>
 </html>

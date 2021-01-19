@@ -16,7 +16,7 @@ sensor.register(app)
 def index() -> str:
     return render_template('index.html', **{
         'washers': {i: sensor.get_washer(i) for i in range(10)},
-        'WasherState': WasherState
+        'WasherState': WasherState  # lets us use enum equality checks
     })
 
 
