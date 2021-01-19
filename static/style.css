@@ -22,7 +22,7 @@ header {
     padding-left: 10px;
     padding-right: 10px;
 
-    font-size: 40px;
+    font-size: 2.5em;
     color: #ffffff;
     text-align: center;
     background-color: var(--primary);
@@ -86,4 +86,11 @@ header {
 
 .unavailable {
     background-color: var(--warning);
+}
+
+
+@media screen and (min-width: 700px) {
+    header {
+        font-size: 5em;
+    }
 }
