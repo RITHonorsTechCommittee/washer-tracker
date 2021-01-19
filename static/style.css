@@ -1,3 +1,11 @@
+/* color variables */
+:root {
+    --primary: #F76902;
+    --success: #84BD00;
+    --warning: #DA291C;
+}
+
+
 * {
     box-sizing: border-box;
 }
@@ -17,7 +25,7 @@ header {
     font-size: 40px;
     color: #ffffff;
     text-align: center;
-    background-color: #F76902;
+    background-color: var(--primary);
 
     grid-area: h;
 }
@@ -26,11 +34,11 @@ header {
     margin-left: 15px;
     margin-right: 15px;
     margin-top: 15px;
-    
+
     display: grid;
     grid-gap: .75rem;
     grid-template-columns: auto auto auto;
-    grid-template-areas: "h h h" 
+    grid-template-areas: "h h h"
                          "m1 m2 m3"
                          "m4 m5 m6"
                          "m7 m8 m9";
@@ -73,9 +81,9 @@ header {
 }
 
 .available {
-    background-color: #84BD00;
+    background-color: var(--success);
 }
 
 .unavailable {
-    background-color: #DA291C;
+    background-color: var(--warning);
 }
