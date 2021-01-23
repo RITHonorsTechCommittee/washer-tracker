@@ -9,7 +9,7 @@ DESTINATION: str = 'http://10.1.5.118:5000'  # server base URL
 
 def on_vibrate(channel):
     print('sending update')
-    requests.post(DESTINATION + '/vibrate', json={'washer_id': 0})
+    requests.post(DESTINATION + '/vibrate', json={'laundromat': 'Gibson', 'washer_id': '1'})
     time.sleep(5)
 
 

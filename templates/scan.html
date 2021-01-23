@@ -11,8 +11,7 @@
 <body>
   	<header>Scan {% if for_washer %}Washer{% else %}Dryer{% endif %} #{{ washer_id }}</header>
 	<form id="form" onsubmit="sendData(event)">
-
-		{% if current_state == WasherState.EMPTY %}
+		{% if current_state == MachineState.EMPTY %}
 		<input type="hidden" name="new_state" value="RUNNING">
 		<select name="cycle">
 			<option selected>Select a cycle...</option>
@@ -27,12 +26,12 @@
 		</select>
 		<input type="submit" value="Start Load">
 
-		{% elif current_state == WasherState.FULL %}
+		{% elif current_state == MachineState.FULL %}
 		<input type="hidden" name="new_state" value="EMPTY">
 		<h3>Thank you for emptying this {% if for_washer %}washer{% else %}dryer{% endif %} in a timely manner!</h3>
 		<input type="submit" value="Empty">
 
-		{% else %}  <!-- current_state == WasherState.RUNNING -->
+		{% else %}  <!-- current_state == MachineState.RUNNING -->
 		<h3>Sorry, this {% if for_washer %}washer{% else %}dryer{% endif %} is currently running.</h3>
 		{% endif %}
 	</form>
@@ -50,7 +49,7 @@
 				payload.cycle = formData.get('cycle');
 			}
 
-			fetch('/scan/' + window.location.pathname.split("/").pop(), {
+			fetch(window.location.pathname, {
 				method: 'POST',
 				body: JSON.stringify(payload),
 				headers: {

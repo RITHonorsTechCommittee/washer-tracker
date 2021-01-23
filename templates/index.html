@@ -31,7 +31,7 @@ Version: PRE RELEASE
 
     <div class="wrapper">
         {% for id, value in washers.items() %}
-        <div id="machine{{ id }}" class="{{ 'available' if value == WasherState.EMPTY else 'unavailable' }}">
+        <div id="machine{{ id }}" class="{{ 'available' if value == MachineState.EMPTY else 'unavailable' }}">
             <h2>Washer {{ id }}</h2>
             <p>{{ value.name | title }}</p>
         </div>

@@ -1,13 +1,8 @@
 from abc import ABC, abstractmethod
-from enum import Enum
 from flask import Flask
-from typing import NoReturn
+from typing import Dict, NoReturn
 
-
-class WasherState(Enum):
-    RUNNING = 1
-    FULL = 2
-    EMPTY = 3
+from laundromat import Laundromat
 
 
 class Sensor(ABC):
@@ -16,21 +11,10 @@ class Sensor(ABC):
     specific sensor.
     """
 
-    def register(self, app: Flask) -> NoReturn:
+    @abstractmethod
+    def register(self, app: Flask, laundromats: Dict[str, Laundromat]) -> NoReturn:
         """
         Optional method called at program start. You can use this to
         register Flask routes, if needed.
         """
         pass
-
-    @abstractmethod
-    def get_washer(self, id: int) -> WasherState:
-        """
-        Get the current state of the washer with given ID.
-
-        Parameters:
-        - id (int): The ID of the washer to check
-
-        Returns: The state of the washer
-        """
-        raise NotImplementedError
