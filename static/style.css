@@ -3,6 +3,7 @@
     --primary: #F76902;
     --success: #84BD00;
     --warning: #DA291C;
+    --white: #FFFFFF;
 }
 
 
@@ -22,8 +23,8 @@ header {
     padding-left: 10px;
     padding-right: 10px;
 
-    font-size: 2.5em;
-    color: #ffffff;
+    font-size: 40px;
+    color: var(--white);
     text-align: center;
     background-color: var(--primary);
 
@@ -34,63 +35,129 @@ header {
     margin-left: 15px;
     margin-right: 15px;
     margin-top: 15px;
-
+    
     display: grid;
     grid-gap: .75rem;
     grid-template-columns: auto auto auto;
-    grid-template-areas: "h h h"
+    grid-template-areas: "h h h" 
                          "m1 m2 m3"
                          "m4 m5 m6"
-                         "m7 m8 m9";
+                         "m7 m8 m9";  
 }
 
 #machine1 {
     grid-area: m1;
+    border-style: solid;
+    border-width: .5rem ;
+    text-align: center;
 }
 
 #machine2 {
     grid-area: m2;
+    border-style: solid;
+    border-width: .5rem ;
+    text-align: center;
 }
 
 #machine3 {
     grid-area: m3;
+    border-style: solid;
+    border-width: .5rem ;
+    text-align: center;
 }
 
 #machine4 {
     grid-area: m4;
+    border-style: solid;
+    border-width: .5rem ;
+    text-align: center;
 }
 
 #machine5 {
     grid-area: m5;
+    border-style: solid;
+    border-width: .5rem ;
+    text-align: center;
 }
 
 #machine6 {
     grid-area: m6;
+    border-style: solid;
+    border-width: .5rem ;
+    text-align: center;
 }
 
 #machine7 {
     grid-area: m7;
+    border-style: solid;
+    border-width: .5rem ;
+    text-align: center;
 }
 
 #machine8 {
     grid-area: m8;
+    border-style: solid;
+    border-radius: auto;
+    border-width: .5rem ;
+    text-align: center;
 }
 
 #machine9 {
     grid-area: m9;
+    border-style: solid;
+    border-width: .5rem ;
+    text-align: center;
 }
 
 .available {
-    background-color: var(--success);
+    border-color: var(--success);
 }
 
 .unavailable {
-    background-color: var(--warning);
+    border-color: var(--warning);
 }
 
+.beta-available {
+    background-color:var(--success);
+    color: var(--white);
+}
 
-@media screen and (min-width: 700px) {
+@media only screen and (max-width: 1068px) {
     header {
-        font-size: 5em;
+        font-size: 34px;
+    }
+
+    .wrapper {
+        display: grid;
+        grid-gap: .75rem;
+        grid-template-columns: auto auto;
+        grid-template-areas: "h h" 
+                             "m1 m2"
+                             "m3 m4"
+                             "m5 m6"
+                             "m7 m8"
+                             "m9 m9"; 
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    header {
+        font-size: 28px;
+    }
+
+    .wrapper {
+        display: grid;
+        grid-gap: .75rem;
+        grid-template-columns: auto;
+        grid-template-areas: "h" 
+                             "m1"
+                             "m2"
+                             "m3"
+                             "m4"
+                             "m5"
+                             "m6"
+                             "m7"
+                             "m8"
+                             "m9"; 
     }
 }

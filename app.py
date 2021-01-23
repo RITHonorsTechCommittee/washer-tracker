@@ -15,14 +15,14 @@ sensor.register(app)
 @app.route('/', methods=['GET'])
 def index() -> str:
     return render_template('index.html', **{
-        'washers': {i: sensor.get_washer(i) for i in range(10)},
+        'washers': {i: sensor.get_washer(i) for i in range(1, 10)},
         'WasherState': WasherState  # lets us use enum equality checks
     })
 
 
 @app.route('/washers', methods=['GET'])
 def washers() -> str:
-    return jsonify({i: sensor.get_washer(i).name for i in range(10)})
+    return jsonify({i: sensor.get_washer(i).name for i in range(1, 10)})
 
 
 if __name__ == '__main__':
